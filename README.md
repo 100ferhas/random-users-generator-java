@@ -2,26 +2,90 @@
 
 This is a wrapper to use fake user APIs at https://randomuser.me/
 
+### Installation
+
+MAVEN
+
+### Usage
+Once the package is installed, you can import the provider class and start using it, see [examples](#examples).
+
+```java
+
+```
+
+[Response data model](#response-data) is the same as the REST API.
+
+### Examples
+
+Basic usage, just retrieve a single user without options:
+
+```java
+public class Example {
+    
+    public static void main(String[] args) {
+        UsersProvider usersProvider = new UsersProvider();
+        UsersProviderAPIResponse response = usersProvider.getUsers();
+
+        // get results
+        List<Result> results = response.getResults();
+
+        // get infos
+        Info info = response.getInfo();
+    }
+}
+```
+
+Alternatively, you can build a `UsersProviderAPIOptions` instance to provide options to retrieve data:
+
+```java
+public class Example {
+    
+    public static void main(String[] args) {
+        UsersProviderAPIOptions options = UsersProviderAPIOptions
+                .builder()
+                .results(5)
+                .build();
+
+        UsersProviderAPIResponse response = new UsersProvider().getUsers(options);
+    }
+}
+```
+
+Or just pass to the method a `Supplier<UsersProviderAPIOptions>` that returns a `UsersProviderAPIOptions`:
+
+```java
+public class Example {
+    
+    public static void main(String[] args) {
+        UsersProviderAPIResponse response = new UsersProvider().getUsers(
+                () -> UsersProviderAPIOptions
+                        .builder()
+                        .results(5)
+                        .build()
+        );
+    }
+}
+```
 
 #### Request Options
-| Parameter   | Type            | Description                                                          | Required | Allowed Values                                                                                                                                                       |
-|-------------|-----------------|----------------------------------------------------------------------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| info        | boolean         | if you want info attribute in the response                           | no       | `true` or `false`                                                                                                                                                        |
-| results     | number          | number of results                                                    | no       | any integer                                                                                                                                                          |
-| seed        | string          | a seed used to generate always same sets of users (useful for pages) | no       | any string                                                                                                                                                           |
-| page        | number          | number of the page you are requesting                                | no       | any integer                                                                                                                                                          |
-| gender      | string          | gender of generated users                                            | no       | `'male' \| 'female'`                                                                                                                                                  |
-| password    | PasswordOptions | password generation policy                                           | no       | see [PasswordOptions](#passwordoptions)                                                                                                                                                  |
-| nationality | string[]        | nationality of generated users                                       | no       | `'AU' \| 'BR' \| 'CA' \| 'CH' \| 'DE' \| 'DK' \| 'ES' \| 'FI' \| 'FR' \| 'GB' \| 'IE' \| 'IN' \| 'IR' \| 'MX' \| 'NL' \| 'NO' \| 'NZ' \| 'RS' \| 'TR' \| 'UA' \| 'US'` |
-| include     | string[]        | include fields in response                                           | no       | `'gender' \| 'name' \| 'location' \| 'email' \| 'login' \| 'registered' \| 'dob' \| 'phone' \| 'cell' \| 'id' \| 'picture' \| 'nat'`                                   |
-| exclude     | string[]        | exclude fields in response                                           | no       | `'gender' \| 'name' \| 'location' \| 'email' \| 'login' \| 'registered' \| 'dob' \| 'phone' \| 'cell' \| 'id' \| 'picture' \| 'nat'`                                   |
+| Parameter   | Type         | Description                                                          | Required | Allowed Values                                                                                                                                                       |
+|-------------|--------------|----------------------------------------------------------------------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| noInfo      | Boolean      | if you want info attribute in the response                           | no       | `true` or `false`                                                                                                                                                        |
+| results     | Integer      | number of results                                                    | no       | any integer                                                                                                                                                          |
+| seed        | String       | a seed used to generate always same sets of users (useful for pages) | no       | any string                                                                                                                                                           |
+| page        | Integer      | number of the page you are requesting                                | no       | any integer                                                                                                                                                          |
+| gender      | APIGender       | gender of generated users                                            | no       | `'male' \| 'female'`                                                                                                                                                  |
+| password    | UsersProviderPasswordAPIOptions | password generation policy                                           | no       | see [UsersProviderPasswordAPIOptions](#UsersProviderPasswordAPIOptions)                                                                                                                                                  |
+| nationality | Set<APINationalities>             | nationality of generated users                                       | no       | `'AU' \| 'BR' \| 'CA' \| 'CH' \| 'DE' \| 'DK' \| 'ES' \| 'FI' \| 'FR' \| 'GB' \| 'IE' \| 'IN' \| 'IR' \| 'MX' \| 'NL' \| 'NO' \| 'NZ' \| 'RS' \| 'TR' \| 'UA' \| 'US'` |
+| include     | Set<APIFields> | include fields in response                                           | no       | `'gender' \| 'name' \| 'location' \| 'email' \| 'login' \| 'registered' \| 'dob' \| 'phone' \| 'cell' \| 'id' \| 'picture' \| 'nat'`                                   |
+| exclude     | Set<APIFields> | exclude fields in response                                           | no       | `'gender' \| 'name' \| 'location' \| 'email' \| 'login' \| 'registered' \| 'dob' \| 'phone' \| 'cell' \| 'id' \| 'picture' \| 'nat'`                                   |
 
-#### PasswordOptions
-| Parameter | Type     | Description                                                | Required | Allowed Values                              |
-|-----------|----------|------------------------------------------------------------|----------|---------------------------------------------|
-| charset   | string[] | what type of characters include in the generated password  | no       | `'special' \| 'upper' \| 'lower' \| 'number'` |
-| minLength | number   | min length of generated password                           | no       | any number                                  |
-| maxLength | number   | max length of generated password                           | no       | any number                                  |
+#### UsersProviderPasswordAPIOptions
+| Parameter | Type   | Description                                                | Required | Allowed Values                                |
+|-----------|--------|------------------------------------------------------------|----------|-----------------------------------------------|
+| charset   | Set<PasswordCharset> | what type of characters include in the generated password  | no       | `'special' \| 'upper' \| 'lower' \| 'number'` |
+| minLength | Integer | min length of generated password                           | no       | any integer                                   |
+| maxLength | Integer | max length of generated password                           | no       | any integer                                   |
 
 #### Response Data
 ```json
