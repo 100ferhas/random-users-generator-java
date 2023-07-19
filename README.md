@@ -4,13 +4,13 @@ This is a wrapper to use fake user APIs at https://randomuser.me/
 
 ### Installation
 
-MAVEN
+TODO
 
 ### Usage
 Once the package is installed, you can import the provider class and start using it, see [examples](#examples).
 
 ```java
-
+import io.github.ferhas.users_provider.client.UsersProvider;
 ```
 
 [Response data model](#response-data) is the same as the REST API.
