@@ -13,7 +13,7 @@ public class UsersProvider {
             .builder()
             .queryMapEncoder(new UsersAPIEncoder())
             .decoder(new JacksonDecoder())
-            .target(UsersAPIClient.class, UsersAPIClient.API_URL);
+            .target(UsersAPIClient.class, Constants.API_URL);
 
     public final UsersProviderAPIResponse getUsers() {
         return getUsers(UsersProviderAPIOptions.builder().build());

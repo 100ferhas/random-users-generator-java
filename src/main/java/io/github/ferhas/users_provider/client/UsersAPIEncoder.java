@@ -11,7 +11,7 @@ import io.github.ferhas.users_provider.models.request.UsersProviderAPIOptions;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class UsersAPIEncoder implements QueryMapEncoder {
+class UsersAPIEncoder implements QueryMapEncoder {
     private final ObjectMapper objectMapper = new ObjectMapper()
             .setSerializationInclusion(JsonInclude.Include.NON_NULL)
             .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);

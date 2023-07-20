@@ -4,7 +4,19 @@ This is a wrapper to use fake user APIs at https://randomuser.me/
 
 ### Installation
 
-TODO
+#### Maven
+```xml
+<dependency>
+    <groupId>io.github.100ferhas</groupId>
+    <artifactId>random-users-generator</artifactId>
+    <version>1.1</version>
+</dependency>
+```
+
+#### Gradle
+```
+implementation 'io.github.100ferhas:random-users-generator:1.1'
+```
 
 ### Usage
 Once the package is installed, you can import the provider class and start using it, see [examples](#examples).

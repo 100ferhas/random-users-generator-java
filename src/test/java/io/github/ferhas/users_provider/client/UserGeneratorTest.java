@@ -1,10 +1,8 @@
-package io.github.ferhas.users_provider;
+package io.github.ferhas.users_provider.client;
 
-import io.github.ferhas.users_provider.client.UsersAPIClient;
-import io.github.ferhas.users_provider.client.UsersProvider;
+import io.github.ferhas.users_provider.models.request.UsersProviderAPIOptions;
 import io.github.ferhas.users_provider.models.request.UsersProviderPasswordAPIOptions;
 import io.github.ferhas.users_provider.models.request.enums.APIFields;
-import io.github.ferhas.users_provider.models.request.UsersProviderAPIOptions;
 import io.github.ferhas.users_provider.models.request.enums.APIGender;
 import io.github.ferhas.users_provider.models.request.enums.APINationalities;
 import io.github.ferhas.users_provider.models.request.enums.PasswordCharset;
@@ -36,7 +34,7 @@ public class UserGeneratorTest {
         UsersProviderAPIResponse response = usersProvider.getUsers();
         assertNotNull(response, "No response received");
         assertNotNull(response.getInfo(), "No info received");
-        assertEquals(UsersAPIClient.API_VERSION, response.getInfo().getVersion());
+        assertEquals(Constants.API_VERSION, response.getInfo().getVersion());
 
         LOGGER.info(String.format("API Version is %s", response.getInfo().getVersion()));
     }
