@@ -1,3 +1,5 @@
+[![Publish to Maven Central](https://github.com/100ferhas/random-users-generator-java/actions/workflows/release.yml/badge.svg)](https://github.com/100ferhas/random-users-generator-java/actions/workflows/release.yml)
+
 # Random Users Generator
 
 This is a wrapper to use fake user APIs at https://randomuser.me/
